@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}Gestión de Usuarios - UTT{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-success fw-bold">Gestión de Usuarios</h2>
+    <a href="{% url 'agregar_usuario' %}" 
+       class="btn text-white fw-bold shadow-sm rounded-pill px-4" 
+       style="background-color: #198754 !important; border: none !important;">
+        Agregar Usuario
+    </a>
+</div>
+
+<section class="table-responsive shadow-sm rounded">
+    <table class="table table-hover table-bordered mb-0 bg-white text-center align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in usuarios %}
+            <tr>
+                <td class="fw-bold">{{ forloop.counter }}</td>
+                <td>{{ u.nombre }}</td>
+                <td>{{ u.correo }}</td>
+                <td>
+                    <span class="badge {% if u.rol == 'admin' %}bg-admin{% else %}bg-docente{% endif %} rounded-pill px-3">
+                        {{ u.rol }}
+                    </span>
+                </td>
+                <td>
+                    <div class="d-flex justify-content-center gap-2">
+                        <a href="#" class="btn btn-sm shadow-sm rounded-pill px-3" 
+                           style="color: #FF7300 !important; border: 2px solid #FF7300 !important; background-color: transparent; font-weight: bold;">
+                            Bitácora
+                        </a>
+
+                        <a href="{% url 'editar_usuario' u.id %}" 
+                           class="btn btn-sm text-white shadow-sm rounded-pill px-3" 
+                           style="background-color: #198754 !important; border: none !important;">
+                            Editar
+                        </a>
+                        
+                        <button type="button" class="btn btn-sm btn-danger shadow-sm rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#deleteModal{{ u.id }}">
+                            Eliminar
+                        </button>
+                    </div>
+                </td>
+            </tr>
+
+            <div class="modal fade" id="deleteModal{{ u.id }}" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content border-0">
+                        <div class="modal-header bg-dark text-success border-0 p-3">
+                            <h5 class="modal-title fw-bold">Confirmar Acción</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body text-center p-4">
+                            <p class="fs-5 text-dark">¿Estás seguro de eliminar a <strong>{{ u.nombre }}</strong>?</p>
+                        </div>
+                        <div class="modal-body justify-content-center border-0 p-3 d-flex gap-2">
+                            <button type="button" class="btn btn-outline-success rounded-pill px-4" data-bs-dismiss="modal">Cancelar</button>
+                            <a href="{% url 'eliminar_usuario' u.id %}" class="btn btn-danger text-white rounded-pill px-4 shadow-sm">Sí, Eliminar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <tr><td colspan="5" class="text-center p-4">No hay usuarios registrados.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}

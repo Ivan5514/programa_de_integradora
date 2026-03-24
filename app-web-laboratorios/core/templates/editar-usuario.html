@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4" style="max-width: 500px;">
+    <div class="card shadow p-4">
+        <h3 class="text-center mb-4">Editar Datos del Docente</h3>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label>Nombre Completo</label>
+                <input type="text" name="nombre_completo" class="form-control" value="{{ usuario.nombre }}" required>
+            </div>
+            <div class="mb-3">
+                <label>Correo Institucional</label>
+                <input type="email" name="correo" class="form-control" value="{{ usuario.correo }}" required>
+            </div>
+            <div class="mb-3">
+                <label>Rol en el Sistema</label>
+                <select name="rol" class="form-select">
+                    <option value="Docente" {% if usuario.rol == 'Docente' %}selected{% endif %}>Docente</option>
+                    <option value="Admin" {% if usuario.rol == 'Admin' %}selected{% endif %}>Administrador</option>
+                </select>
+            </div>
+            <div class="d-flex justify-content-between mt-4">
+                <a href="{% url 'usuarios' %}" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-warning text-white">Actualizar</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

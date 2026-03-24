@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Inicio - Sistema de Laboratorios UTT{% endblock %}
+
+{% block content %}
+    <h2 class="mb-4">Panel de Control</h2>
+    
+    <section class="row g-4">
+        <article class="col-md-6">
+            <section class="card shadow-sm p-4 h-100" 
+                     style="border: 2px solid #FF7300 !important; border-left: 6px solid #FF7300 !important;">
+                <div class="d-flex align-items-center">
+                    <div class="ms-3">
+                        <h2 class="h5 text-muted">Laboratorios registrados</h2>
+                        <p class="display-6 fw-bold mb-0">{{ total_labs }}</p>
+                        <small style="color: #FF7300 !important; font-weight: bold;">
+                            Laboratorios disponibles
+                        </small>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <article class="col-md-6">
+            <section class="card border-start border-success border-4 p-4 shadow-sm h-100">
+                <div class="d-flex align-items-center">
+                    <div class="ms-3">
+                        <h2 class="h5 text-muted">Maestros en registro</h2>
+                        <p class="display-6 fw-bold mb-0">{{ total_maestros }}</p>
+                        <small class="text-primary">Docentes dados de alta</small>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </section>
+
+    <div class="mt-5 p-5 bg-light rounded shadow-sm text-center">
+        <h3 class="text-secondary">Bienvenido al Sistema de Gestión de laboratorios de la UTT</h3>
+        <p>Usa el menú superior para administrar usuarios o regitrar laboratorios.</p>
+    </div>
+{% endblock %}

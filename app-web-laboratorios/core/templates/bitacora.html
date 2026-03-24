@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Bitácora Docente - UTT{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-success fw-bold mb-0">Bitácora de Uso</h2>
+    <button type="button" 
+            class="btn text-white fw-bold shadow-sm rounded-pill px-4" 
+            style="background-color: #198754 !important; border: none !important;"
+            data-bs-toggle="modal" 
+            data-bs-target="#modalRegistro">
+        <i class="bi bi-plus-circle"></i> Nuevo Registro de Uso
+    </button>
+</div>
+
+<div class="modal fade" id="modalRegistro" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header bg-dark text-success border-0 p-3">
+                <h5 class="modal-title fw-bold">Nuevo Registro de Uso de Equipo</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body bg-light p-4">
+                <form id="formBitacora" method="POST">
+                    {% csrf_token %}
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label fw-bold text-dark">Nombre del Docente:</label>
+                            <input type="text" name="docente_nombre_libre" class="form-control" value="{{ nombre_docente }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold text-dark">Laboratorio:</label>
+                            <select name="laboratorio" class="form-select" required>
+                                <option value="" selected disabled>Seleccione laboratorio</option>
+                                {% for lab in laboratorios %}
+                                    <option value="{{ lab.id }}">{{ lab.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold text-dark">Carrera:</label>
+                            <select name="carrera" class="form-select" required>
+                                <option value="" selected disabled>Seleccione carrera</option>
+                                <option value="Entornos Virtuales y Negocios Digitales">Entornos Virtuales y Negocios Digitales</option>
+                                <option value="Mantenimiento Industrial">Mantenimiento Industrial</option>
+                                <option value="Procesos Industriales">Procesos Industriales</option>
+                                <option value="Diseño Textil y Moda">Diseño Textil y Moda</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold text-dark">Grado y Grupo:</label>
+                            <input name="grado_grupo" type="text" class="form-control" placeholder="Ej: 5-A" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold text-dark">Fecha:</label>
+                            <input type="date" name="fecha" class="form-control" required value="2026-03-23">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold text-dark">Entrada:</label>
+                            <input type="time" name="hora_entrada" class="form-control" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold text-dark">Salida:</label>
+                            <input type="time" name="hora_salida" class="form-control" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold text-dark">Equipo:</label>
+                            <input name="equipo" type="text" class="form-control" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-bold text-dark">Observaciones:</label>
+                            <textarea name="observaciones" class="form-control" rows="2"></textarea>
+                        </div>
+                        <input type="hidden" name="anio" value="2026">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer border-0 p-3">
+                <button type="button" class="btn btn-outline-success rounded-pill px-4" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" form="formBitacora" class="btn text-white rounded-pill px-4 shadow-sm" style="background-color: #198754 !important; border: none !important;">
+                    Registrar Uso
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="table-responsive shadow-sm rounded">
+    <table class="table table-hover table-bordered mb-0 text-center align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>Fecha</th>
+                <th>Laboratorio</th>
+                <th>Carrera</th>
+                <th>Horario</th>
+                <th>Equipo</th>
+                <th>Observaciones</th>
+            </tr>
+        </thead>
+        <tbody class="bg-white">
+            {% for r in registros %}
+            <tr>
+                <td>{{ r.fecha|date:"d/m/Y" }}</td>
+                <td>{{ r.laboratorio.nombre }}</td>
+                <td class="small">{{ r.carrera }}</td>
+                <td>{{ r.hora_entrada|time:"H:i" }} - {{ r.hora_salida|time:"H:i" }}</td>
+                <td>{{ r.equipo }}</td>
+                <td>{{ r.observaciones|default:"" }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6" class="text-center p-4">No hay registros aún.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+<div class="d-flex justify-content-end gap-2 mt-4">
+    <a href="{% url 'descargar_pdf_bitacora' %}" class="btn btn-outline-danger shadow-sm px-3">
+        <i class="bi bi-file-pdf"></i> Generar PDF
+    </a>
+    <a href="{% url 'dashboard' %}" class="btn btn-secondary shadow-sm px-3">Regresar</a>
+</div>
+{% endblock %}

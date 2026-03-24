@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Gestión de Laboratorios - UTT{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-success fw-bold">Gestión de Laboratorios</h2>
+    <a href="{% url 'nuevo_laboratorio' %}" 
+       class="btn text-white fw-bold shadow-sm rounded-pill px-4" 
+       style="background-color: #198754 !important; border: none !important;">
+        Nuevo Laboratorio
+    </a>
+</div>
+
+<section class="table-responsive shadow-sm rounded">
+    <table class="table table-hover table-bordered mb-0 bg-white text-center align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nombre del Laboratorio</th>
+                <th>Ubicación / Edificio</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for lab in laboratorios %}
+            <tr>
+                <td class="fw-bold">{{ forloop.counter }}</td>
+                <td>{{ lab.nombre }}</td>
+                <td>{{ lab.ubicacion }}</td>
+                <td>
+                    <div class="d-flex justify-content-center gap-2">
+                        <a href="{% url 'editar_laboratorio' lab.id %}" 
+                           class="btn btn-sm text-white shadow-sm rounded-pill px-3" 
+                           style="background-color: #198754 !important; border: none !important;">
+                            Editar
+                        </a>
+                        
+                        <button type="button" class="btn btn-sm btn-danger shadow-sm rounded-pill px-3" 
+                                data-bs-toggle="modal" data-bs-target="#deleteModalLab{{ lab.id }}">
+                            Eliminar
+                        </button>
+                    </div>
+                </td>
+            </tr>
+
+            <div class="modal fade" id="deleteModalLab{{ lab.id }}" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content border-0">
+                        <div class="modal-header bg-dark text-success border-0 p-3">
+                            <h5 class="modal-title fw-bold">Confirmar Eliminación</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body text-center p-4">
+                            <p class="fs-5 text-dark">¿Estás seguro de eliminar el <strong>{{ lab.nombre }}</strong>?</p>
+                            <small class="text-muted">Esta acción no se puede deshacer.</small>
+                        </div>
+                        <div class="modal-footer justify-content-center border-0 p-3">
+                            <button type="button" class="btn btn-outline-success rounded-pill px-4" data-bs-dismiss="modal">Cancelar</button>
+                            <a href="{% url 'eliminar_laboratorio' lab.id %}" class="btn btn-danger text-white rounded-pill px-4 shadow-sm">Sí, Eliminar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <tr><td colspan="4" class="text-center p-4">No hay laboratorios registrados.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}

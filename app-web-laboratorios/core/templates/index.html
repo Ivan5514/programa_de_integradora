@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Sistema de Laboratorios</title>
+
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body class="d-flex align-items-center justify-content-center vh-100 bg-light">
+
+    <main class="card shadow p-4 w-100 mx-3" style="max-width:380px;" role="main" aria-labelledby="tituloLogin">
+
+        <div class="text-center mb-4">
+            <img src="{% static 'img/Logo UTT.png' %}" alt="Logo Universidad" class="img-fluid mb-2" style="max-height: 80px;">
+            <h2 class="h6 text-muted text-uppercase">Universidad Tecnológica de Tlaxcala</h2>
+            <hr> 
+        </div>
+
+        <h1 id="tituloLogin" class="h4 text-center mb-4">
+            Sistema de Laboratorios
+        </h1>
+
+        <form method="POST">
+            {% csrf_token %} 
+            <div class="mb-3">
+                <label for="correo" class="form-label">Correo</label>
+                <input id="correo" name="email" type="email" class="form-control" required>
+            </div>
+
+            <div class="mb-4">
+                <label for="password" class="form-label">Contraseña</label>
+                <input id="password" name="password" type="password" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 mb-3">
+                Iniciar Sesión
+            </button>
+
+            <div class="text-center">
+                <a href="{% url 'agregar_usuario' %}" class="btn btn-link btn-sm">
+                    ¿No tienes cuenta? Registrar Nuevo Usuario
+                </a>
+            </div>
+        </form>
+
+    </main>
+
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

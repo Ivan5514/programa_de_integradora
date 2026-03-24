@@ -1,0 +1,262 @@
+/* =====================================
+   VARIABLES DE COLOR (UTTLAXCALA)
+===================================== */
+:root {
+    --verde-principal: #0f7b3e;
+    --verde-secundario: #198754;
+    --naranja-principal: #f58220;
+    --naranja-hover: #e06d12;
+    --gris-fondo: #f4f6f5;
+    --gris-borde: #dee2e6;
+}
+
+/* =====================================
+   CONFIGURACIÓN GENERAL
+===================================== */
+body {
+    background-color: var(--gris-fondo);
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
+}
+
+main {
+    padding-bottom: 2rem;
+}
+
+/* =====================================
+   NAVBAR / HEADER
+===================================== */
+header {
+    background-color: #ffffff;
+    border-bottom: 4px solid var(--verde-principal);
+}
+
+.navbar-brand {
+    font-weight: bold;
+    color: var(--verde-principal) !important;
+    letter-spacing: 0.5px;
+}
+
+/* =====================================
+   BOTONES
+===================================== */
+
+.btn {
+    border-radius: 30px;
+    font-weight: 600;
+    padding: 8px 18px;
+    transition: all 0.25s ease-in-out;
+    letter-spacing: 0.3px;
+}
+
+/* BOTÓN PRINCIPAL VERDE */
+.btn-primary {
+    background: linear-gradient(135deg, var(--verde-principal), var(--verde-secundario));
+    border: none;
+    color: white;
+    box-shadow: 0 4px 10px rgba(15, 123, 62, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(15, 123, 62, 0.4);
+}
+
+/* BOTÓN NARANJA (acciones importantes) */
+.btn-success,
+.btn-danger {
+    background: linear-gradient(135deg, var(--naranja-principal), var(--naranja-hover));
+    border: none;
+    color: white;
+    box-shadow: 0 4px 10px rgba(245, 130, 32, 0.3);
+}
+
+.btn-success:hover,
+.btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(245, 130, 32, 0.4);
+}
+
+/* BOTONES SECUNDARIOS */
+.btn-secondary {
+    background-color: #ffffff;
+    border: 2px solid var(--verde-principal);
+    color: var(--verde-principal);
+}
+
+.btn-secondary:hover {
+    background-color: var(--verde-principal);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* BOTONES OUTLINE */
+.btn-outline-secondary {
+    border-radius: 30px;
+    border: 2px solid var(--verde-principal);
+    color: var(--verde-principal);
+}
+
+.btn-outline-secondary:hover {
+    background-color: var(--verde-principal);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* BOTÓN INFO (para "Ver bitácora") */
+.btn-info {
+    background-color: #17a2b8;
+    border: none;
+    color: white;
+    border-radius: 20px;
+}
+
+.btn-info:hover {
+    background-color: #138496;
+    transform: scale(1.05);
+}
+
+/* Botón cerrar sesión */
+.btn-danger {
+    background-color: var(--naranja-principal);
+    border-color: var(--naranja-principal);
+}
+
+.btn-danger:hover {
+    background-color: var(--naranja-hover);
+    border-color: var(--naranja-hover);
+}
+
+/* Hover para botones secundarios */
+.btn-outline-secondary:hover {
+    background-color: var(--verde-principal);
+    color: #fff;
+}
+
+/* =====================================
+   TARJETAS (CARDS)
+===================================== */
+.card {
+    border: none;
+    border-left: 6px solid var(--verde-principal);
+    border-radius: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+}
+
+/* =====================================
+   TABLAS ESTILO INSTITUCIONAL FORMAL
+===================================== */
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border: 1px solid #dcdcdc;
+}
+
+/* ENCABEZADO */
+.table thead {
+    background-color: var(--verde-principal);
+    color: #ffffff;
+}
+
+.table thead th {
+    padding: 12px;
+    border: 1px solid #dcdcdc;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* CELDAS */
+.table tbody td {
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    text-align: center;
+}
+
+/* FILAS ALTERNADAS */
+.table tbody tr:nth-child(even) {
+    background-color: #f5f9f7;
+}
+
+/* HOVER DISCRETO */
+.table tbody tr:hover {
+    background-color: #e6f2ec;
+}
+
+/* RESPONSIVE */
+.table-responsive {
+    overflow-x: auto;
+}
+
+/* =====================================
+   FORMULARIOS
+===================================== */
+.form-control,
+.form-select {
+    border-radius: 6px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--naranja-principal);
+    box-shadow: 0 0 0 0.2rem rgba(245, 130, 32, 0.25);
+}
+
+/* =====================================
+   LOGIN CARD CENTRADA
+===================================== */
+.vh-100 {
+    background: linear-gradient(
+        135deg,
+        var(--verde-principal) 0%,
+        var(--naranja-principal) 100%
+    );
+}
+
+.vh-100 main {
+    background-color: #ffffff;
+}
+
+/* =====================================
+   TÍTULOS
+===================================== */
+h1, h2, h3, h4, h5 {
+    color: var(--verde-principal);
+    font-weight: 600;
+}
+
+/* =====================================
+   SOMBRAS SUAVES
+===================================== */
+.shadow,
+.shadow-sm {
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08) !important;
+}
+
+/* =====================================
+   RESPONSIVE AJUSTES
+===================================== */
+@media (max-width: 768px) {
+    header nav a {
+        margin-top: 5px;
+    }
+}
+
+/* Color naranja institucional para la selección */
+.fila-seleccionada {
+    background-color: rgba(243, 112, 33, 0.2) !important; /* Naranja transparente */
+    border-left: 5px solid #f37021 !important; /* Borde naranja sólido */
+    transition: background-color 0.3s ease;
+}
+
+/* Color verde institucional al pasar el mouse */
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 122, 51, 0.1) !important;
+    cursor: pointer;
+}

@@ -1,0 +1,18 @@
+/* Estilos para el Dashboard (Tarjeta Naranja) */
+.custom-border-orange {
+    border-color: #FF7300 !important;
+}
+.custom-text-orange {
+    color: #FF7300 !important;
+}
+
+/* Estilos para los botones de Bitácora (Naranja) */
+.btn-outline-custom-orange {
+    color: #FF7300 !important;
+    border-color: #FF7300 !important;
+}
+.btn-outline-custom-orange:hover {
+    color: white !important;
+    background-color: #FF7300 !important;
+    border-color: #FF7300 !important;
+}

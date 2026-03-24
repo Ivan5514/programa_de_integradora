@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Registro de Bitácora - UTT{% endblock %}
+
+{% block content %}
+<main class="container mt-5 px-3" style="max-width:600px;">
+
+    <div class="text-center mb-4">
+        <h2 class="fw-bold text-success">Nuevo Registro</h2>
+        <p class="text-muted">Complete los detalles del uso del equipo</p>
+    </div>
+
+    <form method="POST" class="card p-4 shadow border-0 w-100 mx-auto bg-white">
+        {% csrf_token %} <div class="mb-3">
+            <label class="form-label fw-bold">Fecha</label>
+            <input type="date" id="fechaActual" name="fecha" class="form-control" required>
+        </div>
+
+        <div class="row g-3 mb-3">
+            <div class="col-12 col-sm-6">
+                <label class="form-label fw-bold">Hora de Entrada</label>
+                <input type="time" name="hora_entrada" class="form-control" required>
+            </div>
+            <div class="col-12 col-sm-6">
+                <label class="form-label fw-bold">Hora de Salida</label>
+                <input type="time" name="hora_salida" class="form-control" required>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-bold">Equipo asignado</label>
+            <select name="equipo" class="form-select" required>
+                <option selected disabled value="">Seleccione un equipo...</option>
+                <option value="1">Computadora Dell - Sala A</option>
+                <option value="2">Proyector Epson - Inventario 04</option>
+                <option value="3">Laptop HP - Préstamo Docente</option>
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label class="form-label fw-bold">Observaciones</label>
+            <textarea name="observaciones" class="form-control" rows="3" placeholder="Detalles adicionales o estado del equipo..."></textarea>
+        </div>
+
+        <section class="d-flex justify-content-between gap-2">
+            <a href="{% url 'bitacora' %}" class="btn btn-outline-secondary flex-grow-1">Cancelar</a>
+            <button type="submit" class="btn btn-success flex-grow-1">Registrar Uso</button>
+        </section>
+
+    </form>
+
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Esto autollena la fecha actual del 2026
+        const hoy = new Date().toISOString().split('T')[0];
+        const inputFecha = document.getElementById('fechaActual');
+        if(inputFecha) inputFecha.value = hoy;
+    });
+</script>
+{% endblock %}

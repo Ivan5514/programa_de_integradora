@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Registrar Laboratorio - UTT{% endblock %}
+
+{% block content %}
+<main class="container mt-5 px-3" style="max-width:500px;">
+
+    <div class="text-center mb-4">
+        <h2 class="fw-bold text-success">Registrar Laboratorio</h2>
+    </div>
+
+    <form method="POST" class="card p-4 shadow border-0 w-100 mx-auto bg-white">
+        {% csrf_token %}
+        
+        <div class="text-center mb-4 border-bottom pb-3">
+            <h2 class="h5 text-muted">Datos del Espacio</h2>
+            <p class="small text-secondary">El ID se asignará automáticamente al guardar.</p>
+        </div>
+
+        <div class="mb-3">
+            <label for="nombreLaboratorio" class="form-label fw-bold">Laboratorio o Taller</label>
+            <input id="nombreLaboratorio" name="nombre" type="text" class="form-control" placeholder="Ej: Laboratorio de Redes" required>
+        </div>
+
+        <div class="mb-4">
+            <label for="ubicacion" class="form-label fw-bold">Ubicación</label>
+            <input id="ubicacion" name="ubicacion" type="text" class="form-control" placeholder="Ej: Edificio C, Planta Alta" required>
+        </div>
+
+        <section class="d-flex justify-content-between gap-2">
+            <a href="{% url 'laboratorios' %}" class="btn btn-outline-secondary flex-grow-1">Cancelar</a>
+            <button type="submit" class="btn btn-primary flex-grow-1">Registrar Laboratorio</button>
+        </section>
+
+    </form>
+
+</main>
+{% endblock %}
