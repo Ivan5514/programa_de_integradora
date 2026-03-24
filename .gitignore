@@ -1,0 +1,11 @@
+# Elimina el rastro de todo el proyecto en Git (tranquilo, no borra tus archivos reales)
+git rm -r --cached .
+
+# Vuelve a agregar todo (Git ahora respetará el nuevo .gitignore)
+git add .
+
+# Guarda los cambios de la limpieza
+git commit -m "Limpieza de archivos innecesarios y agregado .gitignore"
+
+# Sube la limpieza a GitHub
+git push origin main
