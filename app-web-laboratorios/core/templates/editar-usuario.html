@@ -1,28 +1,51 @@
 {% extends 'base.html' %}
+
+{% block title %}Editar Docente - UTT{% endblock %}
+
 {% block content %}
-<div class="container mt-4" style="max-width: 500px;">
-    <div class="card shadow p-4">
-        <h3 class="text-center mb-4">Editar Datos del Docente</h3>
+<div class="container mt-5 px-3" style="max-width: 500px;">
+    
+    <div class="text-center mb-4">
+        <h2 class="fw-bold text-success">Editar Datos del Docente</h2>
+    </div>
+
+    <div class="card shadow-sm border-0 rounded-3 p-4 bg-white">
+        
+        <div class="text-center mb-4 border-bottom pb-3">
+            <h2 class="h5 fw-bold" style="color: #164f3d;">Información del Usuario</h2>
+            <p class="small text-secondary">Modifica el rol o los datos de contacto del personal.</p>
+        </div>
+
         <form method="POST">
             {% csrf_token %}
+            
             <div class="mb-3">
-                <label>Nombre Completo</label>
-                <input type="text" name="nombre_completo" class="form-control" value="{{ usuario.nombre }}" required>
+                <label class="form-label fw-bold" style="color: #198754;">Nombre Completo</label>
+                <input type="text" name="nombre_completo" class="form-control shadow-sm" value="{{ usuario.nombre }}" required>
             </div>
+
             <div class="mb-3">
-                <label>Correo Institucional</label>
-                <input type="email" name="correo" class="form-control" value="{{ usuario.correo }}" required>
+                <label class="form-label fw-bold" style="color: #198754;">Correo Institucional</label>
+                <input type="email" name="correo" class="form-control shadow-sm" value="{{ usuario.correo }}" required>
             </div>
-            <div class="mb-3">
-                <label>Rol en el Sistema</label>
-                <select name="rol" class="form-select">
+
+            <div class="mb-4">
+                <label class="form-label fw-bold" style="color: #198754;">Rol en el Sistema</label>
+                <select name="rol" class="form-select shadow-sm">
                     <option value="Docente" {% if usuario.rol == 'Docente' %}selected{% endif %}>Docente</option>
                     <option value="Admin" {% if usuario.rol == 'Admin' %}selected{% endif %}>Administrador</option>
                 </select>
             </div>
-            <div class="d-flex justify-content-between mt-4">
-                <a href="{% url 'usuarios' %}" class="btn btn-secondary">Cancelar</a>
-                <button type="submit" class="btn btn-warning text-white">Actualizar</button>
+
+            <div class="d-flex justify-content-between gap-3 mt-4">
+                <a href="{% url 'usuarios' %}" class="btn btn-outline-secondary flex-grow-1 rounded-pill fw-bold">
+                    Cancelar
+                </a>
+                
+                <button type="submit" class="btn text-white flex-grow-1 rounded-pill fw-bold shadow-sm" 
+                        style="background-color: #198754 !important; border: none !important;">
+                    Actualizar
+                </button>
             </div>
         </form>
     </div>

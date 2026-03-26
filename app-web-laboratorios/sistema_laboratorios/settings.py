@@ -1,4 +1,5 @@
 import os
+import dj_database_url
 from pathlib import Path
 
 # Ruta base del proyecto
@@ -6,8 +7,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Configuración de seguridad
 SECRET_KEY = 'django-insecure-5r_fjg+rj8iof+wviv8l1*lb%@=2()6uv6c98uge%14rxlygi+'
-DEBUG = True
-ALLOWED_HOSTS = []
+DEBUG = False
+ALLOWED_HOSTS = ["*"]
 
 # Aplicaciones instaladas
 INSTALLED_APPS = [
@@ -52,15 +53,20 @@ WSGI_APPLICATION = 'sistema_laboratorios.wsgi.application'
 
 # Base de Datos PostgreSQL
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'laboratories',
-        'USER': 'Adminpa',
-        'PASSWORD': '5514648126',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
+    "default": dj_database_url.config(
+        default=os.environ.get("DATABASE_URL"),
+        conn_max_age=600,
+    )
 }
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'laboratories',
+#         'USER': 'Adminpa',
+#         'PASSWORD': '5514648126',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432',
+#     }
+# }
 
 # Internacionalización
 LANGUAGE_CODE = 'es-mx'

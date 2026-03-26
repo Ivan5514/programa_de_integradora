@@ -1,19 +1,41 @@
 {% extends 'base.html' %}
+
+{% block title %}Editar Laboratorio - UTT{% endblock %}
+
 {% block content %}
-<div class="container mt-4">
-    <h2>Editar Laboratorio</h2>
-    <form method="POST" class="card p-4 shadow-sm">
+<div class="container mt-5 px-3" style="max-width:500px;">
+    <div class="text-center mb-4">
+        <h2 class="fw-bold text-success">Editar Laboratorio</h2>
+    </div>
+
+    <form method="POST" class="card p-4 shadow-sm border-0 w-100 mx-auto bg-white rounded-3">
         {% csrf_token %}
-        <div class="mb-3">
-            <label class="form-label">Nombre del Laboratorio:</label>
-            <input type="text" name="nombre" class="form-control" value="{{ laboratorio.nombre }}">
+        
+        <div class="text-center mb-4 border-bottom pb-3">
+            <h2 class="h5 fw-bold" style="color: #164f3d;">Modificar Información</h2>
+            <p class="small text-secondary">Actualiza los datos del laboratorio seleccionado.</p>
         </div>
+
         <div class="mb-3">
-            <label class="form-label">Ubicación:</label>
-            <input type="text" name="ubicacion" class="form-control" value="{{ laboratorio.ubicacion }}">
+            <label class="form-label fw-bold" style="color: #198754;">Nombre del Laboratorio:</label>
+            <input type="text" name="nombre" class="form-control" value="{{ laboratorio.nombre }}" required>
         </div>
-        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-        <a href="{% url 'laboratorios' %}" class="btn btn-secondary">Cancelar</a>
+
+        <div class="mb-4">
+            <label class="form-label fw-bold" style="color: #198754;">Ubicación:</label>
+            <input type="text" name="ubicacion" class="form-control" value="{{ laboratorio.ubicacion }}" required>
+        </div>
+
+        <section class="d-flex justify-content-between gap-3">
+            <button type="submit" class="btn text-white flex-grow-1 rounded-pill fw-bold shadow-sm" 
+                    style="background-color: #198754 !important; border: none !important;">
+                Guardar Cambios
+            </button>
+            
+            <a href="{% url 'laboratorios' %}" class="btn btn-outline-secondary flex-grow-1 rounded-pill fw-bold">
+                Cancelar
+            </a>
+        </section>
     </form>
 </div>
 {% endblock %}
