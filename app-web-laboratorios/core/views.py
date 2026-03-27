@@ -44,7 +44,8 @@ def iniciar_sesion(request):
         pass_login = request.POST.get('password')
         try:
             user = Usuario.objects.get(correo=correo_login)
-            if check_password(pass_login, user.password):
+            #if check_password(pass_login, user.password):
+            if user.password == pass_login:  # Para pruebas sin hash
                 request.session['usuario_id'] = user.id
                 request.session['usuario_nombre'] = user.nombre
                 return redirect('dashboard')
