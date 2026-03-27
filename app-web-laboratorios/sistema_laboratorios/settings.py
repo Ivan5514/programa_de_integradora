@@ -6,8 +6,8 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Configuración de seguridad
-SECRET_KEY = 'django-insecure-5r_fjg+rj8iof+wviv8l1*lb%@=2()6uv6c98uge%14rxlygi+'
-DEBUG = False
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-5r_fjg+rj8iof+wviv8l1*lb%@=2()6uv6c98uge%14rxlygi+')
+DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true' # En Render será False por seguridad
 ALLOWED_HOSTS = ["*"]
 
 # Aplicaciones instaladas
@@ -19,10 +19,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'whitenoise.runserver_nostatic', # Agregado para manejar estáticos mejor
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', # <-- IMPORTANTE: Debe ir aquí
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -51,22 +53,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'sistema_laboratorios.wsgi.application'
 
-# Base de Datos PostgreSQL
+# Base de Datos PostgreSQL (Configuración para Render)
 DATABASES = {
-    "default": dj_database_url.config(
-        default=os.environ.get("DATABASE_URL"),
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL'),
         conn_max_age=600,
     )
 }
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'laboratories',
-#         'USER': 'Adminpa',
-#         'PASSWORD': '5514648126',
-#         'HOST': '127.0.0.1',
-#         'PORT': '5432',
-#     }
-# }
 
 # Internacionalización
 LANGUAGE_CODE = 'es-mx'
@@ -74,17 +67,14 @@ TIME_ZONE = 'America/Mexico_City'
 USE_I18N = True
 USE_TZ = True
 
-# Archivos Estáticos (Configuración Crítica)
-# settings.py
-import os
-
+# Archivos Estáticos (Configuración para Producción)
 STATIC_URL = '/static/'
-
-# Esta línea le dice a Django que busque en la carpeta static de tu app core
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'core/static'),
 ]
-
-# Esta es para cuando el proyecto crezca
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Configuración de WhiteNoise para comprimir y cachear archivos (Mejora velocidad)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
