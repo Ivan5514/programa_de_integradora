@@ -7,7 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Configuración de seguridad
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-5r_fjg+rj8iof+wviv8l1*lb%@=2()6uv6c98uge%14rxlygi+')
-DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true' # En Render será False por seguridad
+DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
 ALLOWED_HOSTS = ["*"]
 
 # Aplicaciones instaladas
@@ -19,12 +19,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'whitenoise.runserver_nostatic', # Agregado para manejar estáticos mejor
+    'whitenoise.runserver_nostatic', # Agregado para manejo de estáticos
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', # <-- IMPORTANTE: Debe ir aquí
+    'whitenoise.middleware.WhiteNoiseMiddleware', # Vital para servir CSS/JS en Render
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -53,7 +53,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'sistema_laboratorios.wsgi.application'
 
-# Base de Datos PostgreSQL (Configuración para Render)
+# Configuración de Base de Datos para PostgreSQL en Render
 DATABASES = {
     'default': dj_database_url.config(
         default=os.environ.get('DATABASE_URL'),
@@ -67,14 +67,18 @@ TIME_ZONE = 'America/Mexico_City'
 USE_I18N = True
 USE_TZ = True
 
-# Archivos Estáticos (Configuración para Producción)
+# Archivos Estáticos (Configuración Final)
 STATIC_URL = '/static/'
+
+# Ruta a la carpeta static dentro de tu app core
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'core/static'),
 ]
+
+# Carpeta donde se recolectan los archivos para producción
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Configuración de WhiteNoise para comprimir y cachear archivos (Mejora velocidad)
+# Almacenamiento optimizado con WhiteNoise (compresión y caché)
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
